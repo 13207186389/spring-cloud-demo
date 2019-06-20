@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: ribbon
+
+server:
+  port: 3001
+
+#注册到eureka服务中心
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka1:2001/eureka, http://eureka2:2002/eureka
+
+#ribbon重试
+ribbon:
+  #更换服务器的次数
+  MaxAutoRetriesNextServer: 2
+  #当更换服务器时对每台服务器请求次数
+  MaxAutoRetries: 1
+  #对连接超时读取超时都进行重试
+  OkToRetryOnAllOperations: true

@@ -1,0 +1,45 @@
+
+spring:
+  application:
+    name: feign
+
+server:
+  port: 3001
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka1:2001/eureka, http://eureka2:2002/eureka
+
+#\u8D1F\u8F7D\u5747\u8861\u548C\u91CD\u8BD5
+ribbon:
+  ConnectTimeout: 1000
+  ReadTimeout: 1000
+
+item-service:
+  ribbon:
+    ConnectTimeout: 500
+    ReadTimeout: 1000
+    MaxAutoRetriesNextServer: 2
+    MaxAutoRetries: 1
+
+#\u542F\u7528\u964D\u7EA7
+feign:
+  hystrix:
+    enabled: true
+
+#\u6682\u65F6\u51CF\u5C0F\u964D\u7EA7\u8D85\u65F6\u65F6\u95F4\uFF0C\u4EE5\u4FBF\u540E\u7EED\u5BF9\u964D\u7EA7\u8FDB\u884C\u6D4B\u8BD5
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 500
+
+#\u66B4\u9732 hystrix.stream \u7AEF\u70B9
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
